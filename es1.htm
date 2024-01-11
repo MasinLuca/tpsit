@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Button Background Color</title>
+ <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #fffc3f;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+      background-color: #2c2b2b;
+      color: rgb(88, 114, 199);
+      border: none;
+      border-radius: 5px;
+    }
+    .alternate-color {
+      background-color: rgb(88, 114, 199);
+    }
+ </style>
+</head>
+<body>
+ <button class="btn">Change Background</button>
+
+ <script>
+    document.querySelector('.btn').addEventListener('click', function() {
+      document.body.classList.toggle('alternate-color');
+    });
+ </script>
+</body>
+</html>
