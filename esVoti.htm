@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertitore voti in decimi</title>
+</head>
+<body>
+    <h1>Convertitore voti in decimi</h1>
+    <label for="voto">Inserisci un voto in decimi:</label>
+    <input type="number" id="voto" required>
+    <button onclick="aggiungiVoto()">Aggiungi voto</button>
+    <h2>Voti in trentesimi:</h2>
+    <ul id="voti"></ul>
+    <script>
+        function minimo(voti) {
+            return Math.min(...voti);
+        }
+
+        function aggiungiVoto() {
+            const voto = parseFloat(document.getElementById("voto").value);
+            const voti = [
+                voto * 10,
+                voto * 2,
+                voto * 3
+            ];
+            const listaVoti = document.getElementById("voti");
+            listaVoti.innerHTML = "";
+            voti.forEach((voto, indice) => {
+                const li = document.createElement("li");
+                li.textContent = `Voto ${indice + 1}: ${voto.toFixed(2)}`;
+                listaVoti.appendChild(li);
+            });
+            const minimoVoto = minimo(voti);
+            const liMinimo = document.createElement("li");
+            liMinimo.textContent = `Voto più basso: ${minimoVoto.toFixed(2)}`;
+            listaVoti.appendChild(liMinimo);
+        }
+    </script>
+</body>
+</html>
