@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Es array</title>
+</head>
+<body>
+    <p>Per vedere la somma dell'array premi f12 per vedere la console</p>
+    <script>
+        let arr = []
+        const numeroElementi =10
+        const max = 100
+        for(let i=0; i<numeroElementi; i++)
+        {
+          arr.push(Math.floor(Math.random()*max))   
+        }
+
+       console.log(arr)
+        
+        let somma=0
+        arr.forEach(numero => {
+            somma += numero
+        });
+        console.log (`La somma è di ${somma}`)
+
+    </script>
+
+</body>
+</html>
