@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Es 2 verifica</title>
+</head>
+<style>
+    body{
+        margin: 30px;
+        text-align: center;
+    }
+    #btn1{
+        height: 40px;
+        border: 1px solid black;
+        background-color: rgb(136, 217, 255);
+        border-radius: 50px;
+    }
+    #btn2{
+        height: 35px;
+        border: 1px solid black;
+        background-color: rgb(255, 154, 136);
+        border-radius: 50px;
+    }
+    #btn3{
+        height: 30px;
+        border: 1px solid black;
+        background-color: rgb(255, 227, 136);
+        border-radius: 50px;
+    }
+</style>
+<body>
+    <!--!Scrivi un programma html js css che presenta 3 bottoni. 
+Cliccando il primo bottone scrive a video un numero a tua scelta n e ricliccando lo stesso bottone riscrive il numero sommato di due (n+2) 
+Per il secondo bottone la funzionalità è la medesima al primo ma al secondo click presenta il primo numero +3 
+Per il terzo bottone +7 ad ogni click -->
+    <div class="cont">
+<!-- 3 bottoni con evento onclick -->
+    <button id="btn1" onclick="aggiungi(1)">Somma 2</button>
+    <button id="btn2" onclick="aggiungi(2)">Somma 3</button>
+    <button id="btn3" onclick="aggiungi(3)">Somma 7</button>
+<!-- paragrafi dove vengono inseriti gli output dallo script-->
+    <p id="out1"> </p>
+    <p id="out2"> </p>
+    <p id="out3"> </p>
+    </div>
+    <!-- script che crea un array numeri con all'interno 0 -->
+    <script>
+        let numeri = [0,0,0];
+     
+        function aggiungi(index){
+            numeri[index - 1] += index == 1 ? 2 : index == 2 ? 3 : 7;
+            document.getElementById(`out${index}`).innerHTML=`Valore: ${numeri[index - 1]}`;}
+   
+    </script>
+</body>
+</html>
