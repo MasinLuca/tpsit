@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Area Cerchio</title>
+    <style>
+        .square {
+            margin-top: 5px;
+            background-color: rgba(85, 0, 0, 0.767);
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calcolatore Area Cerchio</h2>
+
+    <form oninput="result.value = circleArea(radius.value)">
+        <fieldset>
+            <legend>Inserisci il raggio del cerchio:</legend>
+            <label>Raggio (cm): <input type="number" id="radius" name="radius" step="any" min="0"></label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Risultato:</legend>
+            <output id="result" name="result" value='0'></output>
+            <button type="reset">Reset</button>
+        </fieldset>
+    </form>
+
+    <fieldset>
+        <legend>Quadrati:</legend>
+        <button onclick="printSquares(result.value)">Stampa quadrati</button>
+        <div id="squares"></div>
+    </fieldset>
+
+    <script>
+        function circleArea(radius) {
+            const area = Math.PI * radius * radius;
+            return area.toFixed(2);
+        }
+
+        function printSquares(n) {
+            const squaresDiv = document.getElementById("squares");
+            squaresDiv.innerHTML = "";
+            for (let i = 0; i < n; i++) {
+                const square = document.createElement("div");
+                square.classList.add("square");
+                squaresDiv.appendChild(square);
+            }
+        }
+    </script>
+</body>
+</html>
