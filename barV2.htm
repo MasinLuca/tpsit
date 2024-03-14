@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bar V 2.0</title>
+  </head>
+
+    <style>
+
+        p{
+            font-size: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        #demo{
+            background-color: rgb(31, 248, 237);
+            height: auto;
+            width: 820px;
+            border: 2px solid rgb(15, 61, 189);
+            border-radius: 10px;
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 15px;
+            font-size: 25px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        button{
+            color: rgb(233, 228, 228);
+            background-color: rgb(15, 61, 189);
+            border-radius: 50px;
+            width: 200px;
+            height: 50px;
+            font-size: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            cursor: pointer;
+        }
+    </style>
+
+  <body>
+    <p id="demo"></p>
+
+    <button id="bottone-add" onclick="aggiungiDrink()">Aggiungi drink</button>
+    <button id="bottone-remove" onclick="cancellaDrink()">
+      Cancella drink
+    </button>
+    <button id="bottone-count" onclick="contaDrink()">Conta drink</button>
+    <button id="bottone-order" onclick="ordinaDrink()">ordina drink</button>
+
+    <p>Numero drink a menu :</p>
+    <p id="contaDrink"></p>
+    <p>Hai ordinato:</p>
+    <p id="ordine"></p>
+    <script>
+      const drinks = [
+        "coca",
+        "spritz",
+        "sprite",
+        "fanta",
+        "birra",
+        "belvedere",
+        "martini",
+      ];
+      const carrello = [];
+      document.getElementById("demo").innerHTML = drinks.join(", ");
+
+      function contaDrink() {
+        let length = drinks.length;
+        document.getElementById("contaDrink").innerHTML = drinks.length;
+      }
+      function aggiungiDrink() {
+        let text;
+        let drink = prompt("Inserisci il tuo drink nella lista:");
+        drinks.push(drink);
+        document.getElementById("demo").innerHTML = drinks;
+      }
+      function cancellaDrink() {
+        let drink = drinks.pop();
+        document.getElementById("demo").innerHTML = drinks;
+      }
+
+      function ordinaDrink() {
+        let text;
+        let drinkDaordinare = prompt(
+          "Richiedimi un drink (0 -" + drinks.length + ")"
+        );
+        carrello.push(drinkDaordinare);
+        drinks.push(drinks);
+        document.getElementById("ordine").innerHTML = carrello;
+      }
+    </script>
+  </body>
+</html>
