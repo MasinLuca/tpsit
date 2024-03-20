@@ -83,11 +83,11 @@
       function ordinaDrink() {
         let text;
         let drinkDaordinare = prompt(
-          "Richiedimi un drink (0 -" + drinks.length + ")"
+          "Richiedimi un drink (1 -" + drinks.length + ")"
         );
         carrello.push(drinkDaordinare);
         drinks.push(drinks);
-        document.getElementById("ordine").innerHTML = carrello;
+        document.getElementById("ordine").innerHTML = drinks [carrello - 1];
       }
     </script>
   </body>
