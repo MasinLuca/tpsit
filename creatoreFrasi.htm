@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creatore di Frasi</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#frase {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+    </style>
+</head>
+<body>
+    <h1>Creatore di Frasi</h1>
+    <div id="frase"></div>
+    <button onclick="aggiungiSoggetto()">Aggiungi soggetto</button>
+    <button onclick="aggiungiVerbo()">Aggiungi verbo</button>
+    <button onclick="aggiungiComplemento()">Aggiungi complemento</button>
+    <button onclick="creaFrase()">Crea frase</button>
+    <button onclick="creaFraseCasuale()">Crea frase casuale</button>
+    <script>
+        let soggetti = [];
+        let verbi = [];
+        let complementi = [];
+
+        function aggiungiSoggetto() {
+            let soggetto = prompt("Inserisci il soggetto:");
+            if (soggetto) {
+                soggetti.push(soggetto);
+                visualizzaArray();
+            }
+        }
+
+        function aggiungiVerbo() {
+            let verbo = prompt("Inserisci il verbo:");
+            if (verbo) {
+                verbi.push(verbo);
+                visualizzaArray();
+            }
+        }
+
+        function aggiungiComplemento() {
+            let complemento = prompt("Inserisci il complemento:");
+            if (complemento) {
+                complementi.push(complemento);
+                visualizzaArray();
+            }
+        }
+
+        function visualizzaArray() {
+            document.getElementById("frase").innerHTML = "";
+            document.getElementById("frase").innerHTML += "Soggetti: " + soggetti.join(", ") + "<br>";
+            document.getElementById("frase").innerHTML += "Verbi: " + verbi.join(", ") + "<br>";
+            document.getElementById("frase").innerHTML += "Complementi: " + complementi.join(", ");
+        }
+
+        function creaFrase() {
+            if (soggetti.length > 0 && verbi.length > 0 && complementi.length > 0) {
+                let frase = soggetti[0] + " " + verbi[0] + " " + complementi[0];
+                document.getElementById("frase").innerHTML += "<br>" + frase;
+            } else {
+                alert("Devi inserire almeno un elemento per ogni array.");
+            }
+        }
+
+        function creaFraseCasuale() {
+            if (soggetti.length > 0 && verbi.length > 0 && complementi.length > 0) {
+                let indiceSoggetto = Math.floor(Math.random() * soggetti.length);
+                let indiceVerbo = Math.floor(Math.random() * verbi.length);
+                let indiceComplemento = Math.floor(Math.random() * complementi.length);
+                let frase = soggetti[indiceSoggetto] + " " + verbi[indiceVerbo] + " " + complementi[indiceComplemento];
+                document.getElementById("frase").innerHTML += "<br>" + frase;
+            } else {
+                alert("Devi inserire almeno un elemento per ogni array.");
+            }
+        }
+    </script>
+</body>
+</html>
