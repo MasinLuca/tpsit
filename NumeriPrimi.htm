@@ -22,12 +22,15 @@ function isPrimo(num) {
 }
 
 function trovaNumeriPrimi() {
+    let count = 0; // initialize counter
     document.write('<h2>Numeri primi da 1 a 10000:</h2>');
     for (let i = 1; i <= 10000; i++) {
         if (isPrimo(i)) {
             document.write(i + '<br>');
+            count++; // increment counter
         }
     }
+    document.write('<p>Total number of prime numbers: ' + count + '</p>'); // display total count
 }
 </script>
 
