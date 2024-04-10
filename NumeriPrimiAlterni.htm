@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conteggio Numeri Primi</title>
+</head>
+<body>
+
+<script>
+function isPrimo(num) {
+    if (num <= 1) return false;
+    if (num <= 3) return true;
+
+    if (num % 2 === 0 || num % 3 === 0) return false;
+
+    for (let i = 5; i * i <= num; i += 6) {
+        if (num % i === 0 || num % (i + 2) === 0) return false;
+    }
+
+    return true;
+}
+
+function contaNumeriPrimi(start, end) {
+    let count = 0;
+    for (let i = start; i <= end; i++) {
+        if (isPrimo(i)) {
+            count++;
+        }
+    }
+    return count;
+}
+
+document.write('<h2>Conteggio dei numeri primi:</h2>');
+for (let i = 0; i <= 1000; i += 100) {
+    document.write('Tra ' + i + ' e ' + (i + 100) + ': ' + contaNumeriPrimi(i, i + 100) + '<br>');
+}
+</script>
+
+</body>
+</html>
