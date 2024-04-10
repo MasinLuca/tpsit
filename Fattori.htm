@@ -9,21 +9,27 @@
 
 <button onclick="trovaFattori()">Trova i fattori da 1 a 1000</button>
 
-    <script>
-    function trovaFattori(){
-
-    for(i = 1; i <= 1000; i++) {
-        document.write(' i divisori di ', i ,' sono: ');
-        for(j = 1; j <= i; j++) {
-            if(i % j == 0) {
-                document.write(j, ' ');
+<script>
+function trovaFattori() {
+    for (let i = 1; i <= 1000; i++) {
+        document.write('I divisori di ', i, ' sono: ');
+        let divisori = [];
+        for (let j = 1; j <= i; j++) {
+            if (i % j === 0) {
+                divisori.push(j);
             }
         }
-    document.write('<br>');
+        document.write(divisori.join(' '));
+        
+        if (divisori.length === 2) {
+            document.write(' (Numero primo)');
+        }
+        
+        document.write('<br>');
     }
 }
-    
+
 </script>
-   
+
 </body>
 </html>
