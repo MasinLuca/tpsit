@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divisori del numero N</title>
+</head>
+<body>
+
+<button onclick="trovaFattori()">Trova i fattori da 1 a 1000</button>
+
+    <script>
+    function trovaFattori(){
+
+    for(i = 1; i <= 1000; i++) {
+        document.write(' i divisori di ', i ,' sono: ');
+        for(j = 1; j <= i; j++) {
+            if(i % j == 0) {
+                document.write(j, ' ');
+            }
+        }
+    document.write('<br>');
+    }
+}
+    
+</script>
+   
+</body>
+</html>
