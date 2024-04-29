@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Div Sovrapposti</title>
+<style>
+    #container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        border: 1px solid black;
+    }
+    .box {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+    }
+    .blue {
+        background-color: blue;
+    }
+    .yellow {
+        background-color: yellow;
+    }
+    .red {
+        background-color: red;
+    }
+</style>
+</head>
+<body>
+
+<div id="container"></div>
+
+<script>
+    function getRandomPosition() {
+        var container = document.getElementById('container');
+        var width = container.offsetWidth - 200; // width of container minus width of box
+        var height = container.offsetHeight - 200; // height of container minus height of box
+        var randomX = Math.floor(Math.random() * width);
+        var randomY = Math.floor(Math.random() * height);
+        return [randomX, randomY];
+    }
+
+    function createBox(color) {
+        var box = document.createElement('div');
+        box.className = 'box ' + color;
+        var position = getRandomPosition();
+        box.style.left = position[0] + 'px';
+        box.style.top = position[1] + 'px';
+        return box;
+    }
+
+    function checkOverlap() {
+        var blueBox = document.querySelector('.box.blue');
+        var yellowBox = document.querySelector('.box.yellow');
+        var redBoxes = document.querySelectorAll('.box.red');
+
+        if (blueBox && yellowBox) {
+            var blueRect = blueBox.getBoundingClientRect();
+            var yellowRect = yellowBox.getBoundingClientRect();
+
+            if (!(blueRect.right < yellowRect.left ||
+                blueRect.left > yellowRect.right ||
+                blueRect.bottom < yellowRect.top ||
+                blueRect.top > yellowRect.bottom)) {
+                blueBox.classList.add('red');
+                yellowBox.classList.add('red');
+            }
+        }
+    }
+
+    function updateBoxes() {
+        var container = document.getElementById('container');
+        container.innerHTML = '';
+
+        var blueBox = createBox('blue');
+        var yellowBox = createBox('yellow');
+
+        container.appendChild(blueBox);
+        container.appendChild(yellowBox);
+
+        checkOverlap();
+    }
+
+    setInterval(updateBoxes, 2000);
+</script>
+
+</body>
+</html>
