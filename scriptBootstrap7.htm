@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test7</title>
+</head>
+
+<style type="text/css">
+    .miediv {
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        border-width: 1px;
+        border: solid black;
+        top: 20px;
+        text-align: center;
+        color: black;
+    }
+</style>
+
+<body onLoad="inizia()">
+    <!-- DIVs con lo stesso nome 'A' rappresentano gli elementi dell'array -->
+    <div name='A' class='miediv'></div>
+    <div name='A' class='miediv'></div>
+    <div name='A' class='miediv'></div>
+    <div name='A' class='miediv'></div>
+    <div name='A' class='miediv'></div>
+    <div name='A' class='miediv'></div>
+
+    <script>
+        // Funzione che si avvia quando la pagina si carica
+        function inizia() {
+            // Prende tutti gli elementi con nome 'A'
+            var a = document.getElementsByName('A');
+            // Ciclo per impostare l'aspetto iniziale di ogni elemento
+            for (i = 0; i < a.length; i++) {
+                // Imposta il colore di sfondo bianco
+                a[i].style.backgroundColor = 'rgb(255,255,255)';
+                // Imposta la posizione orizzontale in base all'indice
+                a[i].style.left = (i * 60) + 'px'; // Aggiungi 'px'
+            }
+
+            // Array per memorizzare i valori numerici dei div
+            var b = new Array();
+            // Inizializza tutti i valori di b a 255
+            for (i = 0; i < a.length; i++) {
+                b[i] = 255;
+            }
+
+            // Intervallo di tempo per cambiare i colori e nascondere i div
+            setInterval(function () {
+                // Genera un numero casuale per selezionare un elemento casuale dell'array
+                pos = parseInt(Math.random() * a.length);
+
+                // Se il valore corrente nell'array è maggiore di 0, decrementa il valore
+                if (b[pos] > 0) {
+                    b[pos] = b[pos] - 5;
+                    // Imposta il colore di sfondo in base al valore numerico
+                    a[pos].style.backgroundColor = 'rgb(' + b[pos] + ',' + b[pos] + ',255)';
+                    // Mostra il valore numerico all'interno del div
+                    a[pos].innerHTML = b[pos];
+                    // Se il valore è inferiore a 120, imposta il colore del testo su bianco
+                    if (b[pos] < 120)
+                        a[pos].style.color = 'white';
+                } else {
+                    // Se il valore è 0 o negativo, nasconde il div
+                    a[pos].style.display = 'none';
+                }
+
+            }, 100);
+        }
+    </script>
+</body>
+</html>
