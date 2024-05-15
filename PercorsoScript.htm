@@ -1,0 +1,76 @@
+<SCRIPT Language='JavaScript'>
+
+    function inizia()
+    {
+     
+       var a = document.getElementsByName('A');
+       var lung=a.length;
+       var pos=-1;
+       var posizioni = new Array()
+       posizioni = [0, 2, 3, 4, 1, 3, 5, 7]  //array con le posizioni
+       var k = 0;  //valore k di i
+    
+       for(i=0;i<lung;i++)
+       {
+          a[i].style.backgroundColor='yellow';
+          a[i].style.left=(i*60)+10;
+       }
+     
+       setInterval(function () {
+          
+          
+          if(pos<lung-1)
+          {
+             for(i=0;i<lung;i++)
+             {
+                a[i].style.backgroundColor='yellow';
+             } 
+             
+             pos=posizioni[k++];
+             a[pos].style.backgroundColor='red';
+          }
+          else
+          {
+           pos=-1;
+           k = 0;  //variabile k che ha valore di i
+          }	     
+       }, 250); //velocità di 250 ms
+       
+     
+    }
+    
+    </SCRIPT>
+    
+    
+    <HTML>
+       <HEAD>
+       <TITLE>Percorso</TITLE>
+       </HEAD>
+    
+       <style type="text/css">
+         
+          .miediv
+          {
+    
+             position:absolute;
+             height:50px;
+             width:50px;
+             border-width:1px;
+             border:solid black;
+             top:20px;
+          }
+    
+       </style>
+    
+       <BODY onLoad="inizia()">
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+        <DIV name='A' class='miediv'></DIV>
+      </BODY>
+    
+    </HTML>
