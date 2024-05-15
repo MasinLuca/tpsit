@@ -4,35 +4,37 @@ function inizia()
 {
  
    var a = document.getElementsByName('A');
-   var lung=a.length;
-   var pos=-1;
 
-   for(i=0;i<lung;i++)
+   for(i=0;i<a.length;i++)
    {
       a[i].style.backgroundColor='yellow';
       a[i].style.left=(i*60)+10;
    }
+
+
+   var pos=-1;
+   var verso=1;
  
    setInterval(function () {
-	  
-      if(pos<lung-1)
-      {
-         for(i=0;i<lung;i++)
-         {
-            a[i].style.backgroundColor='yellow';
-         } 
-         
-         pos=pos+1;
-	 a[pos].style.backgroundColor='red';
-      }
-      else
-      {
-	   lung=lung-1;
-	   pos=-1;
-      }	     
-   }, 300);
    
- 
+      for(i=0;i<a.length;i++)
+      {
+         a[i].style.backgroundColor='yellow';
+      } 
+	  
+      pos=pos+verso;
+      
+      //if(pos>6) pos=6;
+	  
+	  if(pos>=a.length-1 && verso==1)
+	     verso=-verso;
+	  else 	 
+	     if(pos<=0 && verso==-1)
+	      verso=-verso;
+	  a[pos].style.backgroundColor='red';
+	  
+   }, 500);
+
 }
 
 </SCRIPT>
@@ -40,7 +42,7 @@ function inizia()
 
 <HTML>
    <HEAD>
-   <TITLE>test11</TITLE>
+   <TITLE>test6</TITLE>
    </HEAD>
 
    <style type="text/css">
@@ -53,7 +55,7 @@ function inizia()
          width:50px;
          border-width:1px;
          border:solid black;
-	 top:20px;
+	      top:20px;
       }
 
    </style>
@@ -65,8 +67,8 @@ function inizia()
 	<DIV name='A' class='miediv'></DIV>
 	<DIV name='A' class='miediv'></DIV>
 	<DIV name='A' class='miediv'></DIV>
- 	<DIV name='A' class='miediv'></DIV>
 	<DIV name='A' class='miediv'></DIV>
-  </BODY>
+   <DIV name='A' class='miediv'></DIV>
+   </BODY>
 
 </HTML>
