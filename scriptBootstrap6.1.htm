@@ -1,0 +1,72 @@
+<SCRIPT Language='JavaScript'>
+
+function inizia()
+{
+ 
+   var a = document.getElementsByName('A');
+   var lung=a.length;
+   var pos=-1;
+
+   for(i=0;i<lung;i++)
+   {
+      a[i].style.backgroundColor='yellow';
+      a[i].style.left=(i*60)+10;
+   }
+ 
+   setInterval(function () {
+	  
+      if(pos<lung-1)
+      {
+         for(i=0;i<lung;i++)
+         {
+            a[i].style.backgroundColor='yellow';
+         } 
+         
+         pos=pos+1;
+	 a[pos].style.backgroundColor='red';
+      }
+      else
+      {
+	   lung=lung-1;
+	   pos=-1;
+      }	     
+   }, 300);
+   
+ 
+}
+
+</SCRIPT>
+
+
+<HTML>
+   <HEAD>
+   <TITLE>test11</TITLE>
+   </HEAD>
+
+   <style type="text/css">
+     
+      .miediv
+      {
+
+         position:absolute;
+         height:50px;
+         width:50px;
+         border-width:1px;
+         border:solid black;
+	 top:20px;
+      }
+
+   </style>
+
+   <BODY onLoad="inizia()">
+	<DIV name='A' class='miediv'></DIV>
+	<DIV name='A' class='miediv'></DIV>
+	<DIV name='A' class='miediv'></DIV>
+	<DIV name='A' class='miediv'></DIV>
+	<DIV name='A' class='miediv'></DIV>
+	<DIV name='A' class='miediv'></DIV>
+ 	<DIV name='A' class='miediv'></DIV>
+	<DIV name='A' class='miediv'></DIV>
+  </BODY>
+
+</HTML>
