@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it" ng-app="targaApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Targhe con Angular</title>
+    <style>
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .valida {
+            background-color: #d4edda; /* Verde chiaro */
+        }
+
+        .non-valida {
+            background-color: #f8d7da; /* Rosso chiaro */
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        var app = angular.module('targaApp', []);
+        app.controller('TargaController', ['$scope', function($scope) {
+            $scope.targhe = [];
+            $scope.targa = '';
+
+            $scope.aggiungiTarga = function() {
+                if ($scope.targa) {
+                    var valida = verificaTarga($scope.targa);
+                    $scope.targhe.push({ targa: $scope.targa, valida: valida });
+                    $scope.targa = ''; // Reset dell'input
+                }
+            };
+
+            function verificaTarga(targa) {
+                var regexStandard = /^[A-Z]{2}[0-9]{3}[A-Z]{2}$/; // AB123CD
+                var regexStorica = /^[A-Z]{1}[0-9]{3}[A-Z]{2}$/; // A123BC
+                var regexProvvisoria = /^[A-Z]{2}[0-9]{4}[A-Z]{1}$/; // AB1234C
+                var combinazioniNonValide = /CI|MI|TI|CO|MO|TO|QU|QO/;
+
+                return (regexStandard.test(targa) || regexStorica.test(targa) || regexProvvisoria.test(targa)) && !combinazioniNonValide.test(targa);
+            }
+        }]);
+    </script>
+</head>
+<body ng-controller="TargaController">
+    <div class="container">
+        <h1>Inserisci Targa Italiana</h1>
+        <input type="text" ng-model="targa" placeholder="Inserisci la targa" />
+        <button ng-click="aggiungiTarga()">Aggiungi</button>
+
+        <h2>Targhe Inserite</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Targa</th>
+                    <th>Stato</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="t in targhe" ng-class="{'valida': t.valida, 'non-valida': !t.valida}">
+                    <td>{{t.targa}}</td>
+                    <td>{{t.valida ? 'Valida' : 'Non Valida'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
