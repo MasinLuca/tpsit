@@ -125,7 +125,7 @@
 
     <div id="best-score">Punteggio migliore: 0</div>
     <div id="target"></div>
-
+    <div id="legenda"> </div>
     <script>
         // Inizializza le variabili
         let punteggio = 0;
@@ -141,6 +141,7 @@
         const punteggioTimerContainer = document.getElementById('score-timer-container');
         let intervalloGioco;
         let intervalloMovimento;
+        let tempiReazione = [];  // Array per memorizzare i tempi di reazione
 
         punteggioMiglioreDisplay.textContent = `Punteggio migliore: ${punteggioMassimo}`;
 
@@ -161,9 +162,12 @@
 
         // Aggiunge l'evento di clic sul bersaglio
         bersaglio.addEventListener('click', () => {
+            const tempoReazione = Date.now() - tempoInizio;  // Calcola il tempo di reazione in ms
+            tempiReazione.push(tempoReazione);  // Memorizza il tempo di reazione
             punteggio++;  // Incrementa il punteggio
             punteggioDisplay.textContent = `Punti: ${punteggio}`;  // Aggiorna il punteggio
             muoviBersaglio();  // Muove il bersaglio dopo il clic
+            tempoInizio = Date.now();  // Aggiorna l'inizio per il prossimo clic
         });
 
         // Funzione per avviare il gioco
@@ -175,8 +179,11 @@
             punteggio = 0;  // Resetta il punteggio
             tempoRimasto = 30;  // Resetta il timer
             totaleBersagli = 0;  // Resetta il totale dei bersagli
+            tempiReazione = [];  // Resetta l'array dei tempi di reazione
             punteggioDisplay.textContent = `Punti: ${punteggio}`;  // Imposta il punteggio iniziale
             timerDisplay.textContent = `Tempo rimasto: ${tempoRimasto}`;  // Imposta il tempo iniziale
+
+            tempoInizio = Date.now();  // Registra l'inizio del tempo per il primo clic
 
             muoviBersaglio();  // Muove subito il bersaglio
             intervalloGioco = setInterval(aggiornaTimer, 1000);  // Aggiorna il timer ogni secondo
@@ -192,24 +199,34 @@
             }
         }
 
+        // Funzione per calcolare la media e la variazione
+        function calcolaMediaVariazione() {
+            const somma = tempiReazione.reduce((acc, tempo) => acc + tempo, 0);
+            const media = somma / tempiReazione.length;
+            const variazione = Math.sqrt(tempiReazione.reduce((acc, tempo) => acc + Math.pow(tempo - media, 2), 0) / tempiReazione.length);
+            return { media, variazione };
+        }
+
         // Funzione per terminare il gioco
         function terminaGioco() {
             clearInterval(intervalloGioco);  // Ferma il timer
             clearInterval(intervalloMovimento);  // Ferma il movimento del bersaglio
 
-            // Se il punteggio attuale è maggiore del punteggio massimo, lo aggiorna
+            // Calcola media e variazione dei tempi di reazione
+            const { media, variazione } = calcolaMediaVariazione();
+
+            // Verifica se il punteggio attuale è il migliore
             if (punteggio > punteggioMassimo) {
                 punteggioMassimo = punteggio;
-                localStorage.setItem('punteggioMassimo', punteggioMassimo);
+                localStorage.setItem('punteggioMassimo', punteggioMassimo);  // Salva il punteggio migliore
             }
 
-            const percentualeColpiti = totaleBersagli > 0 ? (punteggio / totaleBersagli) * 100 : 0; // Calcola la percentuale di bersagli colpiti
-
-            // Mostra il punteggio migliore
+            // Mostra il miglior punteggio
             punteggioMiglioreDisplay.textContent = `Punteggio migliore: ${punteggioMassimo}`;
             punteggioMiglioreDisplay.style.display = 'block';  // Mostra il miglior punteggio
 
-            alert(`Tempo scaduto! Hai totalizzato ${punteggio} punti.\nPercentuale di bersagli colpiti: ${percentualeColpiti.toFixed(2)}%`);
+            // Mostra i risultati del gioco
+            document.getElementById("legenda").innerHTML=(`Tempo scaduto! Hai totalizzato ${punteggio} punti.\nMedia tempi di reazione: ${media.toFixed(2)} ms\nVariazione dei tempi di reazione: ${variazione.toFixed(2)} ms`);
 
             setTimeout(() => {
                 punteggioMiglioreDisplay.style.display = 'none';  // Nasconde il punteggio migliore dopo il tempo
@@ -222,10 +239,10 @@
             bersaglio.style.display = 'none';  // Nasconde il bersaglio
             punteggioTimerContainer.style.display = 'none';  // Nasconde il punteggio e il timer
             interfacciaGioco.style.display = 'block';  // Mostra il pulsante per iniziare il gioco
+            legenda.style.display = 'none';
         }
 
         // Avvia il gioco quando il bottone viene cliccato
-
         bottoneInizio.addEventListener('click', avviaGioco);
     </script>
 </body>
