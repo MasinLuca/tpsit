@@ -4,117 +4,159 @@
     <meta charset="UTF-8">
     <title>Aim Trainer</title>
     <style>
-        /* Stili generali per il body */
+        /* Stile generale per il layout della pagina */
         body {
             display: flex;
-            justify-content: center;  /* Centra orizzontalmente */
-            align-items: center;      /* Centra verticalmente */
-            background: linear-gradient(to bottom right, #fffa9c, #ffcc00);  /* Sfondo gradiente */
-            color: #333;  /* Colore del testo */
-            font-family: 'Arial', sans-serif; /* Font generico */
-            flex-direction: column;  /* Disposizione verticale */
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom right, #fffa9c, #ffcc00);
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            flex-direction: column;
             position: relative;
-            height: 100vh;  /* Imposta l'altezza a 100% della viewport */
-            margin: 0;  /* Rimuove il margine predefinito */
+            height: 100vh;
+            margin: 0;
         }
 
-        /* Stili del bersaglio (il cerchio da cliccare) */
+        /* Stile per il bersaglio che l'utente deve cliccare */
         #target {
             width: 60px;
             height: 60px;
             background: radial-gradient(circle, 
-            red 20%,        /* Primo cerchio rosso */
-            white 20%, white 40%, /* Cerchio bianco */
-            red 40%, red 60%,    /* Secondo cerchio rosso */
-            white 60%, white 80%, /* Altro cerchio bianco */
-            red 80%);       /* Cerchio rosso centrale */
-             border-radius: 50%; /* Trasforma in un cerchio */
+            red 20%, 
+            white 20%, white 40%, 
+            red 40%, red 60%,    
+            white 60%, white 80%, 
+            red 80%);
+            border-radius: 50%; /* Forma circolare */
             position: absolute;
-            cursor: pointer; /* Cambia il cursore quando si passa sopra */
-            transition: transform 0.2s; /* Aggiunge animazione al bersaglio */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Aggiunge un'ombra per effetto 3D */
-            display: none;  /* Inizialmente nascosto */
+            cursor: pointer;
+            transition: transform 0.2s; /* Effetto di zoom al passaggio del mouse */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            display: none; /* Inizialmente nascosto */
         }
 
         #target:hover { 
-            transform: scale(1.1); /* Ingrandisce il bersaglio quando ci si passa sopra */
+            transform: scale(1.1); /* Ingrandimento al passaggio del mouse */
         }
 
-        /* Contenitore per il punteggio e il timer, posizionato in alto a destra */
+        /* Contenitore per il punteggio e il timer */
         #score-timer-container {
-            color: #fff;  /* Colore del testo bianco */
+            color: #fff;
             font-size: 30px;
-            font-family: 'Cursive', sans-serif; /* Font cursivo */
-            text-shadow: 1px 1px 2px #000; /* Ombra nera al testo */
+            font-family: 'Cursive', sans-serif;
+            text-shadow: 1px 1px 2px #000;
             position: absolute;
-            top: 20px;  /* Distanza dal bordo superiore */
-            right: 20px;  /* Distanza dal bordo destro */
+            top: 20px;
+            right: 20px;
             display: flex;
-            flex-direction: column; /* Disposizione verticale per il punteggio e timer */
-            align-items: flex-end;  /* Allinea a destra */
+            flex-direction: column;
+            align-items: flex-end;
         }
 
-        /* Ogni singola voce della legenda ("Punti" e "Tempo rimasto") */
-        .legend-item {
-            background-color: #ff5733;  /* Colore di sfondo del quadrato */
-            padding: 10px 20px;  /* Distanze interne per il padding */
-            margin-bottom: 10px;  /* Spazio tra le voci */
-            border-radius: 10px;  /* Angoli arrotondati */
-            display: flex;  /* Disposizione orizzontale */
-            align-items: center;  /* Allinea il testo verticalmente */
-        }
-
-        #score, #timer {
-            margin: 0;  /* Rimuove il margine tra il quadrato e il testo */
-        }
-
-        /* Stile per il miglior punteggio */
+        /* Stile per il punteggio migliore */
         #best-score {
-            color: green;  /* Colore del testo del punteggio migliore */
+            color: green;
             font-size: 30px;
             font-family: 'Cursive', sans-serif;
             text-shadow: 1px 1px 2px #fff;
             display: none; /* Inizialmente nascosto */
-            margin-bottom: 20px;  /* Distanza inferiore */
+            margin-bottom: 20px;
         }
 
-        /* Stile per il bottone di inizio gioco */
+        /* Stile per il pulsante di avvio */
         #start-button {
             margin-top: 20px;
-            background-color: #ff8c00; /* Colore di sfondo */
-            border-radius: 50px;  /* Rende il bottone arrotondato */
-            width: 250px;  /* Larghezza del bottone */
-            height: 40px;  /* Altezza del bottone */
-            font-size: 22px;  /* Dimensione del testo */
+            background-color: #ff8c00;
+            border-radius: 50px;
+            width: 250px;
+            height: 40px;
+            font-size: 22px;
             font-family: 'Cursive', sans-serif;
-            border: none;  /* Rimuove il bordo */
-            cursor: pointer; /* Cambia il cursore */
-            transition: background-color 0.3s, transform 0.2s; /* Effetto di transizione */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Ombra sotto il bottone */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         #start-button:hover { 
-            background-color: #ffa500; /* Colore quando il mouse è sopra */
-            transform: scale(1.05); /* Ingrandisce il bottone */
+            background-color: #ffa500;
+            transform: scale(1.05); /* Effetto hover */
         }
 
         #start-button:active { 
-            transform: scale(0.95); /* Rimpicciolisce il bottone quando viene cliccato */
+            transform: scale(0.95); /* Effetto al clic */
         }
 
-        #game-interface {
-            text-align: center; /* Allinea il testo al centro */
+        /* Contenitore per l'inserimento del nome del giocatore */
+        #player-name-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #player-name-container input {
+            font-size: 20px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Stile per il pulsante di visualizzazione risultati */
+        #results-button {
+            margin-top: 20px;
+            background-color: #ff8c00;
+            border-radius: 50px;
+            width: 250px;
+            height: 40px;
+            font-size: 22px;
+            font-family: 'Cursive', sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #results-button:hover {
+            background-color: #ffa500 ;
+            transform: scale(1.05);
+        }
+
+        /* Stile per la tabella dei risultati */
+        .results-table {
+            width: 80%;
+            margin: 30px auto;
+            border-collapse: collapse;
+        }
+
+        .results-table, th, td {
+            border: 1px solid #333;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #ff5733;
+            color: white;
+        }
+
+        .hidden {
+            display: none; /* Nasconde gli elementi non necessari */
         }
     </style>
 </head>
 <body>
-    <div id="game-interface">
+    <!-- Contenitore per l'inserimento del nome del giocatore e il pulsante per avviare il gioco -->
+    <div id="player-name-container">
+        <input type="text" id="playerName" placeholder="Inserisci il tuo nome" />
         <button id="start-button">Inizia gioco</button>
     </div>
-   
-    <!-- Contenitore del punteggio e timer con quadrato come sfondo -->
+
+    <!-- Contenitore per il punteggio e il timer -->
     <div id="score-timer-container" style="display: none;">
-        <!-- Voci per il punteggio e il timer con quadrato come sfondo -->
         <div class="legend-item">
             <div id="score">Punti: 0</div>
         </div>
@@ -123,83 +165,115 @@
         </div>
     </div>
 
+    <!-- Visualizzazione del punteggio migliore -->
     <div id="best-score">Punteggio migliore: 0</div>
+    <!-- Bersaglio del gioco -->
     <div id="target"></div>
-    <div id="legenda"> </div>
+
+    <!-- Sezione per i risultati -->
+    <button id="results-button" style="display:none;">Stampa risultati di tutti i giocatori</button>
+
+    <div id="results-section" class="hidden">
+        <h2>Risultati di tutti i giocatori</h2>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Punteggio</th>
+                    <th>Tempo Medio di Reazione (ms)</th>
+                    <th>Variazione (ms)</th>
+                </tr>
+            </thead>
+            <tbody id="results-table-body"></tbody>
+        </table>
+    </div>
+
     <script>
-        // Inizializza le variabili
-        let punteggio = 0;
-        let tempoRimasto = 30;
-        let totaleBersagli = 0; // Contatore del totale dei bersagli apparsi
+        // Inizializzazione delle variabili globali
+        let punteggio = 0; // Punteggio attuale
+        let tempoRimasto = 30; // Timer del gioco
+        let totaleBersagli = 0; // Numero totale di bersagli generati
         let punteggioMassimo = localStorage.getItem('punteggioMassimo') ? parseInt(localStorage.getItem('punteggioMassimo')) : 0;
-        const bersaglio = document.getElementById('target');
-        const punteggioDisplay = document.getElementById('score');
-        const timerDisplay = document.getElementById('timer');
-        const punteggioMiglioreDisplay = document.getElementById('best-score');
-        const bottoneInizio = document.getElementById('start-button');
-        const interfacciaGioco = document.getElementById('game-interface');
-        const punteggioTimerContainer = document.getElementById('score-timer-container');
-        let intervalloGioco;
-        let intervalloMovimento;
-        let tempiReazione = [];  // Array per memorizzare i tempi di reazione
+        let giocatori = JSON.parse(localStorage.getItem('giocatori')) || []; // Lista dei giocatori salvata in memoria locale
+        const bersaglio = document.getElementById('target'); // Elemento del bersaglio
+        const punteggioDisplay = document.getElementById('score'); // Visualizzazione del punteggio
+        const timerDisplay = document.getElementById('timer'); // Visualizzazione del timer
+        const punteggioMiglioreDisplay = document.getElementById('best-score'); // Punteggio migliore
+        const bottoneInizio = document.getElementById('start-button'); // Pulsante per iniziare il gioco
+        const punteggioTimerContainer = document.getElementById('score-timer-container'); // Contenitore del punteggio e timer
+        const risultatiButton = document.getElementById('results-button'); // Pulsante per visualizzare i risultati
+        const resultsSection = document.getElementById('results-section'); // Sezione risultati
+        const resultsTableBody = document.getElementById('results-table-body'); // Corpo della tabella dei risultati
+        let intervalloGioco; // Intervallo per aggiornare il timer
+        let intervalloMovimento; // Intervallo per spostare il bersaglio
+        let tempiReazione = []; // Array per salvare i tempi di reazione
 
-        punteggioMiglioreDisplay.textContent = `Punteggio migliore: ${punteggioMassimo}`;
-
-        // Funzione per ottenere una posizione casuale sullo schermo
+        // Funzione per calcolare una posizione casuale per il bersaglio
         function getPosizioneCasuale() {
-            const x = Math.random() * (window.innerWidth - 30);  // Posizione orizzontale
-            const y = Math.random() * (window.innerHeight - 40); // Posizione verticale
+            const x = Math.random() * (window.innerWidth - 30); // Calcola una posizione casuale sull'asse X
+            const y = Math.random() * (window.innerHeight - 40); // Calcola una posizione casuale sull'asse Y
             return { x, y };
         }
 
-        // Funzione per muovere il bersaglio
+        // Funzione per spostare il bersaglio in una nuova posizione casuale
         function muoviBersaglio() {
-            totaleBersagli++; // Incrementa il totale dei bersagli ogni volta che si muove
+            totaleBersagli++;
             const { x, y } = getPosizioneCasuale();
-            bersaglio.style.left = `${x}px`;  // Imposta la posizione orizzontale
-            bersaglio.style.top = `${y}px`;   // Imposta la posizione verticale
+            bersaglio.style.left = `${x}px`;
+            bersaglio.style.top = `${y}px`;
         }
 
-        // Aggiunge l'evento di clic sul bersaglio
+        // Event listener per il clic sul bersaglio
         bersaglio.addEventListener('click', () => {
-            const tempoReazione = Date.now() - tempoInizio;  // Calcola il tempo di reazione in ms
-            tempiReazione.push(tempoReazione);  // Memorizza il tempo di reazione
-            punteggio++;  // Incrementa il punteggio
-            punteggioDisplay.textContent = `Punti: ${punteggio}`;  // Aggiorna il punteggio
-            muoviBersaglio();  // Muove il bersaglio dopo il clic
-            tempoInizio = Date.now();  // Aggiorna l'inizio per il prossimo clic
+            const tempoReazione = Date.now() - tempoInizio; // Calcola il tempo di reazione
+            tempiReazione.push(tempoReazione);
+            punteggio++; // Incrementa il punteggio
+            punteggioDisplay.textContent = `Punti: ${punteggio}`;
+            muoviBersaglio(); // Sposta il bersaglio
+            tempoInizio = Date.now(); // Aggiorna il tempo di inizio
         });
 
         // Funzione per avviare il gioco
         function avviaGioco() {
-            interfacciaGioco.style.display = 'none';  // Nasconde l'interfaccia iniziale
-            punteggioTimerContainer.style.display = 'flex';  // Mostra punteggio e timer
-            bersaglio.style.display = 'block';  // Mostra il bersaglio
+            const playerName = document.getElementById('playerName').value;
+            if (!playerName.trim()) {
+                alert("Inserisci il tuo nome per iniziare!");
+                return;
+            }
 
-            punteggio = 0;  // Resetta il punteggio
-            tempoRimasto = 30;  // Resetta il timer
-            totaleBersagli = 0;  // Resetta il totale dei bersagli
-            tempiReazione = [];  // Resetta l'array dei tempi di reazione
-            punteggioDisplay.textContent = `Punti: ${punteggio}`;  // Imposta il punteggio iniziale
-            timerDisplay.textContent = `Tempo rimasto: ${tempoRimasto}`;  // Imposta il tempo iniziale
+            // Nasconde il contenitore del nome e mostra il punteggio e timer
+            document.getElementById('player-name-container').style.display = 'none';
+            punteggioTimerContainer.style.display = 'flex';
+            bersaglio.style.display = 'block';
 
-            tempoInizio = Date.now();  // Registra l'inizio del tempo per il primo clic
+            // Resetta le variabili di gioco
+            punteggio = 0;
+            tempoRimasto = 30;
+            totaleBersagli = 0;
+            tempiReazione = [];
+            punteggioDisplay.textContent = `Punti: ${punteggio}`;
+            timerDisplay.textContent = `Tempo rimasto: ${tempoRimasto}`;
 
-            muoviBersaglio();  // Muove subito il bersaglio
-            intervalloGioco = setInterval(aggiornaTimer, 1000);  // Aggiorna il timer ogni secondo
-            intervalloMovimento = setInterval(muoviBersaglio, 1000);  // Muove il bersaglio ogni secondo
+            tempoInizio = Date.now(); // Salva il tempo di inizio
+
+            muoviBersaglio();
+            intervalloGioco = setInterval(aggiornaTimer, 1000); // Aggiorna il timer ogni secondo
+            intervalloMovimento = setInterval(muoviBersaglio, 1000); // Muove il bersaglio ogni secondo
+
+            risultatiButton.style.display = 'none'; // Nasconde il pulsante risultati
+            resultsSection.classList.add('hidden'); // Nasconde la sezione risultati
         }
 
         // Funzione per aggiornare il timer
         function aggiornaTimer() {
-            tempoRimasto--;  // Riduce il tempo di 1 secondo
-            timerDisplay.textContent = `Tempo rimasto: ${tempoRimasto}`;  // Mostra il tempo aggiornato
+            tempoRimasto--;
+            timerDisplay.textContent = `Tempo rimasto: ${tempoRimasto}`;
             if (tempoRimasto <= 0) {
-                terminaGioco();  // Termina il gioco quando il tempo scade
+                terminaGioco(); // Termina il gioco se il tempo scade
             }
         }
 
-        // Funzione per calcolare la media e la variazione
+        // Funzione per calcolare media e variazione dei tempi di reazione
         function calcolaMediaVariazione() {
             const somma = tempiReazione.reduce((acc, tempo) => acc + tempo, 0);
             const media = somma / tempiReazione.length;
@@ -209,41 +283,62 @@
 
         // Funzione per terminare il gioco
         function terminaGioco() {
-            clearInterval(intervalloGioco);  // Ferma il timer
-            clearInterval(intervalloMovimento);  // Ferma il movimento del bersaglio
-
-            // Calcola media e variazione dei tempi di reazione
+            clearInterval(intervalloGioco); // Ferma il timer
+            clearInterval(intervalloMovimento); // Ferma il movimento del bersaglio
+            bersaglio.style.display = 'none';
             const { media, variazione } = calcolaMediaVariazione();
+            alert(`Gioco terminato! Punteggio: ${punteggio}. Tempo medio di reazione: ${media.toFixed(2)} ms. Variazione: ${variazione.toFixed(2)} ms.`);
+            
+            // Salva i dati del giocatore
+            const playerName = document.getElementById('playerName').value;
+            giocatori.push({
+                nome: playerName,
+                punteggio,
+                mediaReazione: media,
+                variazioneReazione: variazione
+            });
 
-            // Verifica se il punteggio attuale è il migliore
+            localStorage.setItem('giocatori', JSON.stringify(giocatori)); // Salva in memoria locale
+
+            // Aggiorna il punteggio massimo
             if (punteggio > punteggioMassimo) {
                 punteggioMassimo = punteggio;
-                localStorage.setItem('punteggioMassimo', punteggioMassimo);  // Salva il punteggio migliore
+                localStorage.setItem('punteggioMassimo', punteggioMassimo);
+                punteggioMiglioreDisplay.textContent = `Punteggio migliore: ${punteggioMassimo}`;
+                punteggioMiglioreDisplay.style.display = 'block';
             }
 
-            // Mostra il miglior punteggio
-            punteggioMiglioreDisplay.textContent = `Punteggio migliore: ${punteggioMassimo}`;
-            punteggioMiglioreDisplay.style.display = 'block';  // Mostra il miglior punteggio
+            risultatiButton.style.display = 'block'; // Mostra il pulsante risultati
 
-            // Mostra i risultati del gioco
-            document.getElementById("legenda").innerHTML=(`Tempo scaduto! Hai totalizzato ${punteggio} punti.\nMedia tempi di reazione: ${media.toFixed(2)} ms\nVariazione dei tempi di reazione: ${variazione.toFixed(2)} ms`);
-
-            setTimeout(() => {
-                punteggioMiglioreDisplay.style.display = 'none';  // Nasconde il punteggio migliore dopo il tempo
-                resettaGioco();  // Resetta il gioco per farlo ripartire
-            }, 4500);
+            // Reset del gioco
+            document.getElementById('playerName').value = '';
+            document.getElementById('player-name-container').style.display = 'flex';
+            punteggioTimerContainer.style.display = 'none';
+            punteggioDisplay.textContent = `Punti: 0`;
+            timerDisplay.textContent = `Tempo rimasto: 30`;
         }
 
-        // Funzione per resettare il gioco
-        function resettaGioco() {
-            bersaglio.style.display = 'none';  // Nasconde il bersaglio
-            punteggioTimerContainer.style.display = 'none';  // Nasconde il punteggio e il timer
-            interfacciaGioco.style.display = 'block';  // Mostra il pulsante per iniziare il gioco
-            legenda.style.display = 'none';
-        }
-
-        // Avvia il gioco quando il bottone viene cliccato
+        // Aggiunge un event listener al pulsante di inizio
         bottoneInizio.addEventListener('click', avviaGioco);
+
+        // Aggiunge un event listener al pulsante risultati
+        risultatiButton.addEventListener('click', () => {
+            resultsSection.classList.remove('hidden');
+            risultatiButton.style.display = 'none';
+
+            // Popola la tabella con i risultati dei giocatori
+            resultsTableBody.innerHTML = '';
+            giocatori.forEach(giocatore => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${giocatore.nome}</td>
+                    <td>${giocatore.punteggio}</td>
+                    <td>${giocatore.mediaReazione.toFixed(2)}</td>
+                    <td>${giocatore.variazioneReazione.toFixed(2)}</td>
+                `;
+                resultsTableBody.appendChild(row);
+            });
+        });
     </script>
 </body>
 </html>
