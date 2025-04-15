@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Digital Coffee</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1e1e1e; /* Sfondo grigio molto scuro */
+            color: #f8f9fa; /* Testo principale bianco-grigiastro */
+            font-family: sans-serif;
+            margin: 0;
+            padding-bottom: 30px;
+        }
+
+        .navbar {
+            background-color: #2c2c2c !important; /* Navbar grigio scuro */
+            border-bottom: 1px solid #444; /* Bordo grigio scuro per separare */
+        }
+
+        .navbar-brand {
+            color: #00bfff !important; /* Azzurro brillante per il titolo */
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ccc !important; /* Link grigio chiaro */
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #fff !important; /* Bianco al passaggio del mouse */
+        }
+
+        .container {
+            background-color: #333; /* Contenitore grigio scuro */
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Ombra più marcata */
+        }
+
+        h1 {
+            color: #00bfff; /* Azzurro brillante per il titolo principale */
+        }
+
+        #post-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-top: 20px; /* Aggiunto un po' di spazio sopra i post */
+        }
+
+        .list-group {
+            width: 80%;
+        }
+
+        .list-group-item {
+            background-color: #444; /* Sfondo grigio scuro per i post */
+            margin-bottom: 10px;
+            border: 1px solid #555; /* Bordo grigio medio-scuro */
+            padding: 15px;
+            border-radius: 5px;
+            color: #eee; /* Testo nei post bianco-grigiastro */
+        }
+
+        .list-group-item strong {
+            color: #00bfff; /* Azzurro brillante per il nome utente */
+        }
+
+        .list-group-item small {
+            color: #999; /* Data grigio medio */
+        }
+
+        h2 {
+            color: #00bfff; /* Azzurro brillante per i sottotitoli */
+            margin-top: 20px;
+            text-align: center; /* Centra il titolo "I tuoi post" */
+        }
+
+        .footer {
+            background-color: #2c2c2c; /* Footer grigio scuro */
+            text-align: center;
+            padding: 10px 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            color: #999; /* Testo del footer grigio medio */
+            font-size: 0.9em;
+        }
+
+        .footer p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Digital Coffee</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <% if (user) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Ciao, <%= user %>!</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1>Benvenuto su Digital Coffee!</h1>
+
+        <form method="POST" action="/post" class="mb-3">
+            <textarea class="form-control" name="content" rows="3" placeholder="Scrivi un post..."></textarea>
+            <button type="submit" class="btn btn-primary mt-2">Pubblica</button>
+        </form>
+
+        <h2>I tuoi post</h2>
+        <div class="list-group">
+            <% posts.forEach(post => { %>
+                <div class="list-group-item">
+                    <p><strong><%= post.username %></strong> <small><%= new Date(post.date).toLocaleString() %></small></p>
+                    <p><%= post.content %></p>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-center py-4 mt-5">
+        <p>&copy; 2025 Digital Coffee</p>
+    </footer>
+
+</body>
+</html>
