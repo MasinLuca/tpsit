@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/styles.css"> <style>
+        body {
+            background-color: #1e1e1e; /* Sfondo grigio molto scuro */
+            color: #f8f9fa; /* Testo principale bianco-grigiastro */
+            display: flex; /* Attiva la modalità flexbox per il body */
+            justify-content: center; /* Centra gli elementi orizzontalmente */
+            align-items: center; /* Centra gli elementi verticalmente */
+            min-height: 100vh; /* Assicura che il body occupi almeno tutta l'altezza della finestra */
+            margin: 0; /* Rimuove i margini di default del body */
+        }
+
+        form {
+            background-color: #333; /* Contenitore grigio scuro */
+            display: flex; /* Attiva la modalità flexbox per il form */
+            flex-direction: column; /* Mette gli elementi del form uno sotto l'altro */
+            align-items: center; /* Centra gli elementi del form orizzontalmente */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Ombra più marcata */
+        }
+
+        button {
+            background-color: #00bfff; /* Azzurro brillante per il pulsante */
+            border-color: #00bfff;
+            color: #222; /* Testo grigio molto scuro sul pulsante */
+            border-radius: 5px;
+            border: 1px solid #555;
+            width: 250px;
+            height: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0080ff; /* Azzurro più scuro al passaggio del mouse */
+            border-color: #0080ff;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            background-color: #444; /* Sfondo scuro per l'area di testo */
+            color: #eee; /* Testo chiaro nell'area di testo */
+            padding: 10px; /* Spazio interno per il testo */
+            margin-bottom: 15px; /* Spazio sotto ogni input */
+            border: 1px solid #555; /* Bordo grigio scuro */
+            border-radius: 5px; /* Angoli leggermente arrotondati */
+            font-size: 16px; /* Dimensione del testo */
+            width: 250px; /* Larghezza dei campi di input */
+            box-sizing: border-box; /* Include padding e bordo nella larghezza */
+        }
+
+        input::placeholder {
+            color: #999; /* Colore del testo segnaposto (placeholder) */
+        }
+
+        input:focus {
+            outline: none; /* Rimuove il bordo blu di default quando l'input è attivo */
+            border-color: #00bfff; /* Cambia il colore del bordo quando l'input è attivo */
+            box-shadow: 0 0 5px rgba(0, 191, 255, 0.5); /* Aggiunge una leggera ombra azzurra */
+        }
+    </style>
+<body>
+
+    <form action="/login" method="POST">
+        <h2>Login</h2>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+</body>
+</html>
